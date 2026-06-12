@@ -1,4 +1,7 @@
 packages:
   - '.'
 
+patchedDependencies:
+  '@slidev/client@52.16.0': patches/@slidev__client@52.16.0.patch
+
 shamefullyHoist: true

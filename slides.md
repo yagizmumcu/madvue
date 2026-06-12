@@ -11,9 +11,6 @@ drawings:
 transition: slide-left
 mdc: true
 duration: 35min
-# hash routing keeps every slide behind "#/" so GitHub Pages (which has no
-# server-side rewrites) always serves index.html — avoids deep-link 404s.
-routerMode: hash
 ---
 
 # MadVue 2026 — Recap
@@ -71,9 +68,9 @@ What we'll cover from MadVue 2026:
 </div>
 
 <div class="w-90 shrink-0 text-center">
-  <img :src="'/img/madvue-bros.webp'" class="rounded-lg border border-white/15 w-full h-40 object-cover" alt="Me and Ahmet at the MadVue banner">
+  <img :src="$base + 'img/madvue-bros.webp'" class="rounded-lg border border-white/15 w-full h-40 object-cover" alt="Me and Ahmet at the MadVue banner">
   <div class="text-xs op-60 mt-1.5 mb-2">your field-research team, on location 🇪🇸</div>
-  <img :src="'/img/saha-arastirmacisi.png'" class="rounded-lg border border-white/15 w-full" alt="">
+  <img :src="$base + 'img/saha-arastirmacisi.png'" class="rounded-lg border border-white/15 w-full" alt="">
 </div>
 
 </div>
@@ -142,7 +139,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/eduardo-san-martin.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Eduardo San Martin Morote">
+  <img :src="$base + 'img/eduardo-san-martin.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Eduardo San Martin Morote">
   <span><strong>Eduardo San Martin Morote</strong> — Vue Router maintainer · 11:15</span>
 </div>
 
@@ -450,12 +447,12 @@ parse(serialize(parse(str)))
 
 <div>
 
-<img :src="'/img/ahmet-eduardo.webp'" class="rounded-lg border border-white/15 w-full h-44 object-cover" alt="Ahmet and Eduardo discussing qpick at MadVue 2026">
+<img :src="$base + 'img/ahmet-eduardo.webp'" class="rounded-lg border border-white/15 w-full h-44 object-cover" alt="Ahmet and Eduardo discussing qpick at MadVue 2026">
 <div class="text-[10px] op-50 mt-1 text-center">the actual five minutes — Ahmet & Eduardo, MadVue 2026</div>
 
 <div class="grid grid-cols-2 gap-1.5 mt-2">
-  <img :src="'/img/eduardo-yagiz.webp'" class="rounded border border-white/15 h-24 w-full object-cover" alt="Eduardo and me">
-  <img :src="'/img/arda-bill.png'" class="rounded border border-white/15 h-24 w-full object-cover" alt="">
+  <img :src="$base + 'img/eduardo-yagiz.webp'" class="rounded border border-white/15 h-24 w-full object-cover" alt="Eduardo and me">
+  <img :src="$base + 'img/arda-bill.png'" class="rounded border border-white/15 h-24 w-full object-cover" alt="">
 </div>
 
 </div>
@@ -585,7 +582,7 @@ hideInToc: true
 <div class="grid grid-cols-2 gap-3 text-sm">
 
 <div class="rounded border border-white/10 p-3 flex gap-3 items-start">
-  <img :src="'/img/eslint-icon.png'" class="w-9 h-9 mt-0.5" alt="ESLint">
+  <img :src="$base + 'img/eslint-icon.png'" class="w-9 h-9 mt-0.5" alt="ESLint">
   <div>
     <div class="font-semibold">Linter <span class="text-xs op-50 font-normal">— ESLint, now Oxlint</span></div>
     <div class="text-xs op-70 mt-0.5">The <strong>proof-reader</strong>. Scans code for
@@ -594,7 +591,7 @@ hideInToc: true
 </div>
 
 <div class="rounded border border-white/10 p-3 flex gap-3 items-start">
-  <img :src="'/img/oxc.svg'" class="w-9 h-9 mt-0.5" alt="Oxc">
+  <img :src="$base + 'img/oxc.svg'" class="w-9 h-9 mt-0.5" alt="Oxc">
   <div>
     <div class="font-semibold">Compiler <span class="text-xs op-50 font-normal">— Oxc</span></div>
     <div class="text-xs op-70 mt-0.5">The <strong>translator</strong>. Turns the languages
@@ -603,7 +600,7 @@ hideInToc: true
 </div>
 
 <div class="rounded border border-white/10 p-3 flex gap-3 items-start">
-  <img :src="'/img/rolldown.svg'" class="w-9 h-9 mt-0.5" alt="Rolldown">
+  <img :src="$base + 'img/rolldown.svg'" class="w-9 h-9 mt-0.5" alt="Rolldown">
   <div>
     <div class="font-semibold">Bundler <span class="text-xs op-50 font-normal">— Rollup, now Rolldown</span></div>
     <div class="text-xs op-70 mt-0.5">The <strong>packer</strong>. Squeezes hundreds of source
@@ -612,7 +609,7 @@ hideInToc: true
 </div>
 
 <div class="rounded border border-white/10 p-3 flex gap-3 items-start">
-  <img :src="'/img/vitest.svg'" class="w-9 h-9 mt-0.5" alt="Vitest">
+  <img :src="$base + 'img/vitest.svg'" class="w-9 h-9 mt-0.5" alt="Vitest">
   <div>
     <div class="font-semibold">Test runner <span class="text-xs op-50 font-normal">— Vitest</span></div>
     <div class="text-xs op-70 mt-0.5">The <strong>inspector</strong>. Re-runs thousands of
@@ -623,7 +620,7 @@ hideInToc: true
 </div>
 
 <div class="rounded border border-teal-400/30 p-3 mt-3 flex gap-3 items-center text-sm">
-  <img :src="'/img/vite.svg'" class="w-9 h-9" alt="Vite">
+  <img :src="$base + 'img/vite.svg'" class="w-9 h-9" alt="Vite">
   <div>
     <span class="font-semibold">Build tool / dev server — Vite.</span>
     <span class="text-xs op-70">The <strong>conductor</strong>: runs the whole factory instantly while
@@ -643,7 +640,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/elise-patrikainen.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Élise Patrikainen">
+  <img :src="$base + 'img/elise-patrikainen.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Élise Patrikainen">
   <span><strong>Élise Patrikainen</strong> (VoidZero) · 11:55</span>
 </div>
 
@@ -766,7 +763,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/markus-oberlehner.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Markus Oberlehner">
+  <img :src="$base + 'img/markus-oberlehner.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Markus Oberlehner">
   <span><strong>Markus Oberlehner</strong> — DX Engineer @ Storyblok · 10:10</span>
 </div>
 
@@ -970,7 +967,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/alexander-opalic.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Alexander Opalic">
+  <img :src="$base + 'img/alexander-opalic.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Alexander Opalic">
   <span><strong>Alexander Opalic</strong> · 16:15</span>
 </div>
 
@@ -1261,7 +1258,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/abdelrahman-awad.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Abdelrahman Awad">
+  <img :src="$base + 'img/abdelrahman-awad.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Abdelrahman Awad">
   <span><strong>Abdelrahman Awad</strong> — Sentry · author of vee-validate · 18:10</span>
 </div>
 
@@ -1513,7 +1510,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/nico-devs.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Nico Devs">
+  <img :src="$base + 'img/nico-devs.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Nico Devs">
   <span><strong>Nico Devs</strong> — Lead Programmer at Tighten · 09:30</span>
 </div>
 
@@ -1566,7 +1563,7 @@ The realtime ladder, lightest to heaviest:
 </div>
 
 <div class="mt-3">
-  <img :src="'/img/nico-beers.webp'" class="rounded-lg border border-white/15 w-full h-44 object-cover" alt="Post-conference beers with Nico">
+  <img :src="$base + 'img/nico-beers.webp'" class="rounded-lg border border-white/15 w-full h-44 object-cover" alt="Post-conference beers with Nico">
   <div class="text-[10px] op-50 mt-1 text-center">Neco baba ve bizzo</div>
 </div>
 
@@ -1725,7 +1722,7 @@ hideInToc: true
 <div class="text-sm">
 
 <div class="flex items-center gap-2">
-  <img :src="'/img/daniel-roe.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Daniel Roe">
+  <img :src="$base + 'img/daniel-roe.jpg'" class="w-9 h-9 rounded-full object-cover" alt="Daniel Roe">
   <span><strong>Daniel Roe</strong> — Nuxt team lead</span>
 </div>
 
@@ -1794,7 +1791,7 @@ hideInToc: true
 
 <div class="flex items-start justify-center gap-8 mt-1">
   <video
-    :src="'/video/daniel-people-first.mp4'"
+    :src="$base + 'video/daniel-people-first.mp4'"
     class="h-86 rounded-lg border border-white/15"
     controls playsinline
   />
@@ -1840,12 +1837,12 @@ hideInToc: true
 A quick rundown — deeper write-ups in a follow-up session:
 
 <div class="flex items-center gap-3 mt-4">
-  <img :src="'/img/nestor-lopez.jpg'" class="w-10 h-10 rounded-full object-cover" alt="Néstor López">
+  <img :src="$base + 'img/nestor-lopez.jpg'" class="w-10 h-10 rounded-full object-cover" alt="Néstor López">
   <span><strong>Néstor López</strong> — <em>Superpositioned Vue components with Module Federation</em></span>
 </div>
 
 <div class="flex items-center gap-3 mt-3">
-  <img :src="'/img/juan-andres-nunez.jpg'" class="w-10 h-10 rounded-full object-cover" alt="Juan Andrés Núñez">
+  <img :src="$base + 'img/juan-andres-nunez.jpg'" class="w-10 h-10 rounded-full object-cover" alt="Juan Andrés Núñez">
   <span><strong>Juan Andrés Núñez</strong> — <em>Learning professional Frontend with Science and Agentic AI</em></span>
 </div>
 
@@ -1857,7 +1854,7 @@ class: p-0
 <div class="absolute inset-0 grid grid-cols-2">
   <div class="bg-black flex items-center justify-center overflow-hidden">
     <video
-      :src="'/video/cup-game.mp4'"
+      :src="$base + 'video/cup-game.mp4'"
       class="h-full object-contain"
       autoplay muted loop playsinline controls
     />

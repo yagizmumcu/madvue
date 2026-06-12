@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref } from 'vue'
 
+// Base-aware asset URL: keeps logos working under a non-root deploy base
+// (e.g. /madvue/) as well as in local dev (base "/").
+const asset = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '')
+
 interface Station { name: string, logo: string, dur: number }
 interface Lane { title: string, tone: string, stations: Station[] }
 
@@ -92,7 +96,7 @@ onUnmounted(() => timer && clearInterval(timer))
       </div>
       <div class="grid grid-cols-2 gap-2">
         <div v-for="(st, i) in lane.stations" :key="st.name" class="flex items-center gap-2">
-          <img :src="st.logo" class="w-6 h-6 shrink-0" :alt="st.name">
+          <img :src="asset(st.logo)" class="w-6 h-6 shrink-0" :alt="st.name">
           <div class="flex-1 min-w-0">
             <div class="text-[10px] op-60 truncate">{{ st.name }}</div>
             <div class="h-2 rounded bg-white/10 overflow-hidden">

@@ -1,0 +1,16 @@
+diff --git a/logic/slides.ts b/logic/slides.ts
+index cb156a18af745ff4c2028bc6515683ec2e45c277..4446e4dad0ac9f62d532e99e832562ce229c88ff 100644
+--- a/logic/slides.ts
++++ b/logic/slides.ts
+@@ -21,7 +21,10 @@ export function getSlidePath(
+     route = getSlide(route)!
+   const no = route.meta.slide?.frontmatter.routeAlias ?? route.no
+   const path = exporting ? `export/${no}` : presenter ? `presenter/${no}` : `${no}`
+-  return `${import.meta.env.BASE_URL}${path}`
++  // Return an app-internal path (leading slash, no base). Vue Router applies
++  // the configured base itself; including BASE_URL here double-applied it under
++  // a non-root base (e.g. /madvue/ -> /madvue/madvue/2).
++  return `/${path}`
+ }
+ 
+ export function useIsSlideActive() {
