@@ -1,1 +1,1 @@
-senin anne babandan olup kardeşin olmayan kişi kimdir?
+Senin anne babandan olup kardeşin olmayan kişi kimdir?
