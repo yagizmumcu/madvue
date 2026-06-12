@@ -1875,10 +1875,3 @@ hideInToc: true
 
 # Thanks!
 
-
-<div class="abs-br m-6 text-xs opacity-60 text-right">
-  📺 All four published recordings:
-  <a href="https://www.youtube.com/playlist?list=PL4bHd5WrBTFg6w7wU3GvinYlP6IcR0yv1" target="_blank">
-    the official MadVue 2026 playlist
-  </a>
-</div>
