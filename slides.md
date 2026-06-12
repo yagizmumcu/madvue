@@ -1866,12 +1866,3 @@ class: p-0
   </div>
 </div>
 
----
-layout: cover
-background: /img/madrid-beer.webp
-class: text-center
-hideInToc: true
----
-
-# Thanks!
-
