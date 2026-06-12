@@ -50,15 +50,6 @@ A walkthrough of the talks I attended in Madrid 🇪🇸
 }
 </style>
 
-<!--
-Selam, geçen hafta Madrid'deydim, MadVue 2026 konferansındaydım. Arkadaki
-fotoğraf da oradan — Bernabéu'da Di Stéfano'nun duvarının önünde otururken
-çekildi: "Hiçbir oyuncu, takımın tamamından daha iyi değildir." Bir takım
-recap'i için bundan iyi açılış slaytı bulamazdım. Bugün orada gördüğüm en
-faydalı konuşmaları sizinle hızlıca paylaşacağım, takım için ne çıkıyor ona
-bakacağız. Bazı konuşmaların kayıt linkleri var, bazılarında elimde sadece
-fotoğraf ve notlar var — ona göre bazı yerlerde daha çok duracağız.
--->
 ---
 transition: fade-out
 hideInToc: true
@@ -84,14 +75,6 @@ What we'll cover from MadVue 2026:
 
 </div>
 
-<!--
-Yedi konuşma var. Eduardo'nun Type-Safe URLs'i ile başlıyoruz, sonra JS
-toolchain'ine geçiyoruz, ardından AI destekli adaptive UI'lar, AI'a hazırlık
-için Clean Code, form component'lerinin yeni modeli, real-time uygulamalar ve
-en sonda Daniel Roe'nun Nuxt roadmap'i. Her konuşmanın sonunda kısa bir "biz
-neredeyiz" slaytı var — orada konuşulanları search-ads-ui ve action-kit'e
-bağlayacağız. Sağdaki fotoğraf da saha ekibimiz: ben ve Ahmet, görev başında.
--->
 ---
 layout: section
 ---
@@ -100,12 +83,6 @@ layout: section
 
 Eduardo San Martin Morote
 
-<!--
-İlk konuşmacımız Eduardo San Martin Morote, Vue Router'ın maintainer'ı. Konu
-basit ama derin: URL'i bir state olarak ele alıyor ve Vue Router 5'in getirdiği
-param parser sistemini anlatıyor. Ama önce: Vue Router nedir, herkes için bir
-slaytta açıklayalım.
--->
 ---
 hideInToc: true
 ---
@@ -151,27 +128,6 @@ request involved.)
   place to validate that text. That's Eduardo's whole thesis.
 </div>
 
-<!--
-Eduardo'nun konusuna girmeden önce: Vue Router nedir?
-
-Uygulamalarımız "single-page app": tarayıcı uygulamayı bir kere yüklüyor,
-sonrasında ekranlar tam sayfa yenilenmeden değişiyor. Ama kullanıcılar hâlâ
-gerçek adres bekliyor — yer imi, geri tuşu, paylaşılabilir link. Bu iki dünyayı
-birleştiren şey router.
-
-Vue Router, adresi okuyup ne göreceğinize karar veren parça. Her adresin
-anatomisi aynı — slayttaki örnek: /products/ hangi ekran, 42 hangi kayıt,
-?page=3 ekran ayarları. Router bunu izliyor, eşleşen ekranı gösteriyor ve
-detayları o ekrana iletiyor.
-
-Backend'ciler için tek cümle: sizin sunucu tarafı route mapping'inizin
-tarayıcıda çalışan hali — /products/:id bir handler'a gidiyor, ama istek
-sunucuya hiç gitmiyor.
-
-Resmi Vue router'ı ve maintainer'ı bugünkü konuşmacımız. Bu konuşma için
-önemi şu: URL metninin uygulama verisine dönüştüğü yer tam olarak router —
-yani o metni doğrulamanın da doğal adresi orası. Eduardo'nun bütün tezi bu.
--->
 ---
 layout: two-cols
 layoutClass: gap-8
@@ -238,20 +194,6 @@ inside the router (**param parsers**) — pages receive typed values.
 
 </div>
 
-<!--
-Eduardo'nun bakış açısı şu: URL aslında diğer state container'larının
-yapamadığı üç şeyi yapabilen birinci sınıf bir state aslında. Bunlar şöyle:
-teleport — linki paylaşıyorsun, karşı taraf aynı state'e iniyor. Zamanda
-yolculuk — browser'ın geri/ileri butonları bedava undo/redo gibi çalışıyor.
-Ve sunucu ile istemci arasında iletişim — redirect, auth flow, SSR hydration,
-hepsi URL üzerinden.
-
-Ama bir sıkıntı var: URL bir string. Bu yüzden bugün her sayfa aynı Number(),
-NaN kontrolü, JSON.parse dansını tekrar tekrar yapıyor. Vue Router 5'in cevabı
-bu işi router'a taşımak — sayfalar artık tip güvenli prop alıyor. Önemli haber:
-unplugin-vue-router artık core'a merge edildi. Önce bugünkü acıya bakalım,
-sonra çözümü canlı görelim.
--->
 ---
 hideInToc: true
 ---
@@ -307,16 +249,6 @@ const page = Array.isArray(route.query.page)
   Now multiply this by <strong>every parameter on every page</strong> of the app.
 </div>
 
-<!--
-Eduardo bu slaytta bugünkü acıyı somutlaştırdı. Path param string | string[]
-tipinde geliyor, bu yüzden elle Number() çevirip Number.isNaN kontrolü yapmak
-zorundasın. Query param daha kötü: string | null | (string | null)[]. Bunu
-güvenli okumak için iç içe ternary yazmak zorunda kalıyorsun. En kötüsü de
-validation'ın template'e sızması — <template v-if="typeof id === 'number'">
-ile sarmadan kullanamıyorsun. Bu üç slayt arka arkaya gösterildiğinde salonda
-herkes başını sallıyor. Şimdi aynı URL'lerin çözümle nasıl davrandığını canlı
-görelim.
--->
 ---
 hideInToc: true
 ---
@@ -335,14 +267,6 @@ hideInToc: true
   still loads, with a sane default. Nobody wrote a single <code>Number()</code> check.
 </div>
 
-<!--
-Burada canlı görelim. URL'deki id'yi bozun — mesela "abc" yazın — sayfa 404
-oluyor, çünkü path param parse edilemezse o sayfa yok demektir. Ama page
-query'sini bozarsanız sayfa yüklenmeye devam ediyor, sadece default değere
-düşüyor. İkisi de bilinçli kararlar ve kimse tek bir Number() kontrolü yazmadı.
-Teknik olmayan arkadaşlar için: bozuk bir link artık ya düzgün bir "bulunamadı"
-sayfası ya da mantıklı bir varsayılan gösteriyor — yarı bozuk bir ekran değil.
--->
 ---
 hideInToc: true
 ---
@@ -407,16 +331,6 @@ export const parser = defineParamParser({
 
 </div>
 
-<!--
-Adoption şu dört adımda oluyor. Birinci adım: vite.config.ts'te vueRouter
-plugin'ine experimental: { paramParsers: true } ekliyorsun. İkinci adım:
-router'ı vue-router/experimental'dan experimental_createRouter ile
-oluşturuyorsun, resolver'ı vue-router/auto-resolver'dan alıyorsun. Üçüncü
-adım: sayfayı [id=int].vue diye isimlendiriyorsun, int ve bool built-in
-olarak geliyor. Dördüncü adım: özel bir tip lazımsa src/params/ altına bir
-dosya atıyorsun, defineParamParser({ get, set }) ile yazıyorsun, parse
-başarısız olduğunda miss() çağırıyorsun. Hepsi bu kadar.
--->
 ---
 hideInToc: true
 ---
@@ -485,14 +399,6 @@ broken query  ?page=abc      →  page loads, sane default
   <a href="https://www.youtube.com/watch?v=1o9EvJ-4cbs" target="_blank">youtube.com/watch?v=1o9EvJ-4cbs</a>
 </div>
 
-<!--
-Burada konuşmadan çıkan dört ana fikri, her birini bir kod örneğiyle koydum.
-Birincisi: aktive etmek tek bir flag — experimental: { paramParsers: true }.
-İkincisi: dosya adı parser'ı seçiyor, [id=int].vue yazdığında param doğrudan
-number geliyor. Üçüncüsü: kendi parser'ın iki fonksiyondan ibaret, get ve set.
-Dördüncüsü: path ve query farklı davranıyor — path parse fail olursa 404,
-query parse fail olursa default değere düşüyor ama route eşleşmeye devam ediyor.
--->
 ---
 hideInToc: true
 ---
@@ -563,31 +469,6 @@ parse(serialize(parse(str)))
   &nbsp;·&nbsp; <a href="https://github.com/tinas/qpick" target="_blank">github.com/tinas/qpick</a>
 </div>
 
-<!--
-Konferansın en iyi kısmı her zaman sahnede olmuyor. Ahmet, Vue için qpick
-diye bir URL-parser kütüphanesi geliştiriyor. Koridorda Eduardo'ya gösterdi —
-beş dakikalık bir sohbet.
-
-Eduardo, aylarca emek verilmiş kütüphanede gözden kaçan şeyi anında yakaladı:
-idempotency. Kuralı şu: URL'den bir değeri okuyup geri yazdığında aynı string'i
-almalısın — her zaman. Teknik olmayan arkadaşlar için: adresi oku, geri yaz —
-hiçbir şey değişmemeli. Aksi halde URL kullanıcının altında titreşiyor ve
-tarayıcı geçmişi aynı sayfanın kopyalarıyla doluyor.
-
-Ahmet birkaç gün içinde alpha-2'yi yayınladı: custom equality fonksiyonunu
-tamamen kaldırdı — iki değer ancak ve ancak aynı string'e serialize oluyorsa
-eşit. Parser başına özel mantık yerine tek kural. Bir de createParser'ı
-defineParser yaptı, Vue'nun defineComponent ve defineStore geleneğine uysun
-diye.
-
-Hikayenin tamamı tinas.dev'de, paket de npm'de yayında — 1.0.0-alpha.2,
-yani yazıdaki değişiklikler gerçekten ship edilmiş durumda. Denemek isteyen
-npmx.dev/package/qpick'ten bakabilir. Buradan çıkan ders: konferans biletinin
-parasını bazen beş dakikalık koridor sohbeti çıkarıyor.
-
-Alttaki iki kareye dair tek kelime etmiyorum — ben de Eduardo ile fotoğraf
-çektirdim, yanındaki referans karesini bilenler bilir.
--->
 ---
 hideInToc: true
 ---
@@ -634,23 +515,6 @@ app → URL doesn't.
   the filters. Adopt Vue Router 5's parsers once they stabilize.
 </div>
 
-<!--
-Şimdi bize bakalım. Tek cümlelik özet: Eduardo'nun anlattığı acı birebir bizde
-var — ekranlar URL'i elle kontrol ediyor, bazıları hiç etmiyor. Bozuk bir link
-temiz bir "bulunamadı" yerine API'den dönen anlamsız bir hata olarak
-görünebiliyor.
-
-Ama daha büyük eksik şu — bunu teknik olmayan arkadaşlar için de söylüyorum:
-uygulamada filtreleri değiştirdiğinizde URL güncellenmiyor. Yani linki kopyalayıp
-bir arkadaşınıza attığınızda o sizin gördüğünüz ekranı görmüyor. Eduardo'nun
-"teleportation" dediği süper gücü tamamen kaybediyoruz.
-
-Action-kit bir component library, kendi sayfası yok — bu konu onu etkilemiyor.
-
-Bir sonraki adım: küçük bir ekran seçip önce orayı düzgün doğrulayalım ve
-filtre değişince URL de güncellensin. Vue Router 5'in parser'ları stabil
-olunca da deneriz.
--->
 ---
 layout: section
 ---
@@ -659,11 +523,6 @@ layout: section
 
 The future of the JavaScript toolchain · Élise Patrikainen · 11:55
 
-<!--
-İkinci konuşma VoidZero'dan Élise Patrikainen'in. Konu Evan You'nun startup'ı
-VoidZero'nun inşa ettiği, Rust üzerine kurulu bütünleşik bir toolchain. Ama
-önce iki slaytlık bir zemin: bu araçlar neden var ve ne işe yarıyorlar.
--->
 ---
 hideInToc: true
 ---
@@ -708,27 +567,6 @@ hideInToc: true
 
 </div>
 
-<!--
-Élise'in konuşmasına girmeden önce: bu araçlar neden var? Yirmi yıl, tek slayt.
-Her dönem bir önceki dönemin acısını çözüyor.
-
-2005 civarı: build diye bir şey yoktu. Bir web sitesi birkaç dosyaydı, sunucuya
-kopyalardınız. Uygulamalar büyüyene kadar bu yeterliydi.
-
-2012, webpack dönemi: uygulamalar binlerce dosya oldu ama JavaScript'in dosyaları
-organize edecek bir mekanizması yoktu. Webpack bunu icat etti: her şeyi tarayıcının
-yükleyebileceği bir pakete bundle'lamak. Babel de modern kodu eski tarayıcılar
-için çevirdi. Bedeli: meşhur config cehennemi ve dakikalarla ölçülen build'ler.
-
-2020, Vite dönemi: tarayıcılar artık modülleri native yükleyebiliyordu. Vue'nun
-yaratıcısının yazdığı Vite, geliştirme sırasında bundle'lamayı tamamen atladı —
-milisaniyede başlıyor, her kayıt anında görünüyor. "Kaydet → gör" döngüsü kahve
-molası olmaktan çıktı. Bugün kullandığımız bu.
-
-Şimdi, Rust dönemi: araçların kendisi hâlâ JavaScript ile yazılmıştı. Çok daha
-hızlı bir sistem dili olan Rust ile yeniden yazınca her şey bir on-yüz kat daha
-hızlanıyor: Oxc, Oxlint, Rolldown. VoidZero'nun projesi bu, bugünkü konuşma da bu.
--->
 ---
 hideInToc: true
 ---
@@ -791,29 +629,6 @@ hideInToc: true
   </div>
 </div>
 
-<!--
-Élise'in rakamlarına geçmeden önce bu araçların ne olduğunu netleştirelim —
-çünkü bu isimler frontend dışındakiler için hiçbir şey ifade etmiyor.
-
-Şöyle düşünün: geliştiriciler insanın okuyabileceği yüzlerce dosya yazar;
-kullanıcıların ise birkaç tane küçük ve hızlı dosyaya ihtiyacı var. İkisinin
-arasındaki fabrika "toolchain" dediğimiz şey. İstasyonları şunlar:
-
-- Linter (ESLint, yenisi Oxlint): düzeltmen. Kod için yazım denetimi gibi —
-  hatalar kullanıcıya ulaşmadan yakalanır.
-- Compiler (Oxc): çevirmen. Geliştiricilerin tercih ettiği dilleri (TypeScript,
-  Vue) tarayıcının gerçekten çalıştırdığı düz JavaScript'e çevirir.
-- Bundler (Rollup, yenisi Rolldown): paketleyici. Yüzlerce dosyayı birkaç
-  küçük, optimize dosyaya sıkıştırır — uygulama hızlı açılır.
-- Test runner (Vitest): müfettiş. Her değişiklikten sonra binlerce otomatik
-  kontrolü yeniden koşturur, bir şeyin bozulmadığını kanıtlar.
-- Vite ise orkestra şefi: geliştirme sırasında fabrikayı anında çalıştırır,
-  production build'de bütün istasyonları yönetir.
-
-Konuşmanın özü: VoidZero bütün istasyonları Rust'la, tek bir ortak motor (Oxc)
-üzerinde yeniden inşa ediyor — on ila yüz kat hızlanma oradan geliyor. Önce
-Élise'in rakamlarına bakalım, sonra farkı canlı yarıştıracağız.
--->
 ---
 layout: two-cols
 layoutClass: gap-8
@@ -879,12 +694,6 @@ instead of separate tools loosely glued together.
   is from BeJS, used here as a reference.
 </div>
 
-<!--
-Slaytta hız rakamları var, özet şu: Oxc parser SWC'den üç kat, transform dört
-kat, resolver yirmi sekiz kat hızlı. Oxlint ESLint'ten elli ila yüz kat,
-Rolldown Rollup'tan on ila otuz kat hızlı. Ana mesaj şu: tek bir Rust core ile
-dev, lint, test ve prod'u besleyebilirsin.
--->
 ---
 hideInToc: true
 ---
@@ -898,20 +707,6 @@ hideInToc: true
 
 <DemoToolchain />
 
-<!--
-Aynı uygulamayı iki fabrikada birden derliyoruz. Run'a basın.
-
-Üstteki şerit bugünkü JavaScript tabanlı fabrika: ESLint kodu kontrol ediyor,
-Rollup paketliyor. Alttaki ise VoidZero'nun Rust fabrikası: Oxlint ve Rolldown
-— aynı işin aynısı. Hız oranları konuşmadaki gerçek oranlar: lint elli ila yüz
-kat, bundle on ila otuz kat.
-
-Alttaki şerit bitti bile — üstteki hâlâ çalışıyor, kahve emojisine dikkat.
-Teknik olmayan arkadaşlar için anlamı şu: bu bekleme her kayıtta, her commit'te,
-her deploy'da yaşanıyor — günde onlarca kez, ekipteki her geliştirici için.
-Saniyeler çarpıla çarpıla haftada saatlere dönüşüyor. Élise'in rakamlarının
-gerçek hayattaki karşılığı bu.
--->
 ---
 hideInToc: true
 ---
@@ -949,12 +744,6 @@ hideInToc: true
   <a href="https://www.youtube.com/watch?v=BnjjUAQZ4CI" target="_blank">youtube.com/watch?v=BnjjUAQZ4CI</a>
 </div>
 
-<!--
-Bizim için iki somut deneme çıkıyor. Birincisi rolldown-vite — en büyük
-uygulamamızda drop-in olarak denenebilir. İkincisi oxlint'i ESLint'in yanında
-pre-filter olarak çalıştırıp CI süresini ölçmek. Vitest'in Rolldown pipeline'ına
-geçişi de yolda. Plugin uyumluluğunu da takip etmek lazım.
--->
 ---
 layout: section
 ---
@@ -963,10 +752,6 @@ layout: section
 
 What if your UI could build itself? · Markus Oberlehner · 10:10
 
-<!--
-Üçüncü konuşma Markus Oberlehner'dan. LLM stream ettikçe büyüyen JSON'a göre
-canlı render olan adaptive UI'lar üzerine.
--->
 ---
 layout: two-cols
 layoutClass: gap-8
@@ -1026,21 +811,6 @@ and found three ingredients that make it work:
   No public video yet — links to the original slides and demo.
 </div>
 
-<!--
-Önce teknik olmayan arkadaşlar için tek cümle: normalde her ekranı bir
-tasarımcı önceden kurar; burada ekranı çalışma anında bir AI kuruyor — ama
-sadece bizim onayladığımız hazır yapı taşlarından. LEGO gibi: tuğlaları biz
-üretiyoruz, talimatı AI yazıyor. Bu yüzden AI saçmalasa bile ekran markamızın
-dışına çıkamıyor.
-
-Markus'un çıkış noktası şu: v0 gibi AI uygulama kurucuları iyi sonuç veriyor
-ama dakikalarca bekliyorsunuz. O, ekranın siz sorarken belirmesini istiyor.
-Bunu mümkün kılan üç malzeme var: bir, hem akıllı hem hızlı bir model — hız
-lüks değil, özelliğin kendisi. İki, verimli bir tarif: AI kod yazmıyor,
-onaylı bloklardan kısa bir alışveriş listesi yazıyor. Üç, stream edilebilir
-bir format: ekran cevabın yarısından render olmaya başlıyor. Şimdi bunu canlı
-görelim.
--->
 ---
 hideInToc: true
 ---
@@ -1054,23 +824,6 @@ hideInToc: true
 
 <DemoAdaptiveStream />
 
-<!--
-Senaryo şu: bir kullanıcı soru soruyor — "bu ay sipariş girişimiz nasıl
-gidiyor?" — ve bu soru için hazırlanmış bir ekran yok. Ask'e basın.
-
-Solda AI'ın cevabı akıyor. Dikkat: bu kod değil — onaylı bloklardan oluşan
-kısacık bir alışveriş listesi: bir başlık, üç metrik kartı, bir çubuk grafik.
-Sağda ekran, cevap daha yarıdayken kurulmaya başlıyor: başlık geliyor, kartlar
-iskelet olarak beliriyor, verisi tamamlanınca doluyor, en sonda grafik
-yükseliyor.
-
-İki numara daha var. Üstteki model seçiciye basın — yavaş modele geçin, hatta
-stream'in ortasında değiştirin: ekranın kuruluş hızı bire bir modelin hızı.
-Markus'un "hız bir özelliktir" dediği şey bu; sunumda model benchmark'ları
-bile gösterdi. Ve en alttaki kutu: AI'ın kullanabileceği onaylı bloklar.
-Kullandıkları yeşil yanıyor. RawHTML'in üstü çizili — onaylı sette yok, AI
-isteyemiyor. Güvenlik buradan geliyor: AI beşinci bir blok icat edemez.
--->
 ---
 hideInToc: true
 ---
@@ -1149,13 +902,6 @@ defineProps<{
   partial JSON repaired with <a href="https://npmx.dev/package/jsonrepair" target="_blank">jsonrepair</a>
 </div>
 
-<!--
-Burada gerçek kod var. Sol tarafta JSON LLM stream ederken nasıl büyüyor
-görüyorsunuz. Sağda Vue tarafı: MaybeLazy<T> prop'lar ve BaseAwait
-component'iyle skeleton gösteriyorsun. expr> ile LLM inline expression yazıp
-dataSources üzerine closure kurabiliyor. Bu setup'ın işe yaramasının nedeni şu:
-UI partial JSON ile bile anlamlı şekilde render olabiliyor.
--->
 ---
 hideInToc: true
 ---
@@ -1201,22 +947,6 @@ hideInToc: true
   💻 <a href="https://code.oberlehner.work/markus/talk-adaptive-uis-madvue-2026-demo" target="_blank">Demo repo</a>
 </div>
 
-<!--
-Aklımda kalanlar: birincisi, hız ürünün kendisi. Markus sahnede model
-benchmark'ları gösterdi — en hızlı model bir saniye küsurda cevap veriyor, en
-akıllısı on altı saniyede. Anında ekran kurmak istiyorsanız hızlı olan
-kazanıyor. İkincisi, "Be humble" hikayesi: kendi parlak fikri YAML'dı, "çünkü
-güzel stream ediyor" diye. AI da fikrini övmüş. Sonra gerçek ölçüm yapınca düz
-JSON'un daha hızlı olduğu çıkmış. Ders: övgüye değil ölçüme güven. Üçüncüsü,
-component'ler deterministik kalıyor — AI sadece kompozisyon yapıyor, yani
-halüsinasyon gören bir model bile markayı veya güvenliği bozamıyor.
-Dördüncüsü, yarım cevaplar jsonrepair ile anında onarılıyor — AI düşünürken
-ekran asla boş kalmıyor.
-
-Denemek için: demo repo'yu çalıştırmak, "menülerde gezinmek yerine soru sor,
-dashboard al" yaklaşımının işe yarayacağı bir-iki ekran bulmak ve bizim onaylı
-blok listemizi taslaklamak — action-kit'ten AI'a hangi component'leri açardık?
--->
 ---
 layout: section
 ---
@@ -1225,10 +955,6 @@ layout: section
 
 Making your Vue project AI-ready · Alexander Opalic
 
-<!--
-Dördüncü konuşma Alexander Opalic'ten. Başlık biraz yanıltıcı: aslında AI
-hakkında değil, AI'ı işe yarar kılan proje hijyeni hakkında.
--->
 
 ---
 layout: two-cols
@@ -1291,14 +1017,6 @@ His mental model:
   the project hygiene that makes AI useful.
 </div>
 
-<!--
-Alexander şöyle açıyor: Bun'ın bir kısmı agent yardımıyla Rust'a yeniden
-yazıldı. "Artık kod yazmaya gerek yok" cümlesi yarı doğru — eğer proje AI'a
-hazırsa ve geliştiriciler ne yaptığını biliyorsa. Düşünme modeli şöyle: agent
-dediğin bir döngü, model, tool'lar ve context'ten ibaret. Context window dolu
-olmadığında çok daha iyi çalışıyor. Slaytları ve repo'su açık, kendi internal
-pipeline'larımız için harika bir referans.
--->
 ---
 hideInToc: true
 ---
@@ -1381,13 +1099,6 @@ Nuxt 4, @nuxt/ui v3
   Snippets from <a href="https://github.com/alexanderop/vue-mad-26" target="_blank">alexanderop/vue-mad-26</a>
 </div>
 
-<!--
-Alexander'ın üç kod parçası şöyle. Birincisi: tool dediğin aslında bir fonksiyon
-— üç field var, hepsi bu. İkincisi: agent loop bir recursion — model'i
-çağırıyorsun, tool'ları çalıştırıyorsun, sonuç döndüyse loop devam ediyor.
-Üçüncüsü: SessionStart hook'u brain/index.md'i context'e enjekte ediyor — altı
-satır shell. Setup'ı işler kılan asıl sır bu son parça.
--->
 ---
 hideInToc: true
 ---
@@ -1429,17 +1140,6 @@ hideInToc: true
   💻 <a href="https://github.com/alexanderop/vue-mad-26" target="_blank">Repo</a>
 </div>
 
-<!--
-İki taraflı bir yaklaşım var. Somut setup parçaları olarak: AGENTS.md bir
-"doorway" olarak tutuluyor, içine her şeyi tıkmak yerine ana yerlere
-yönlendiriyor. brain/ klasöründe Codebase, Plans ve Principles var. Skills,
-hooks ve katmanlı bir kalite pipeline'ı: types → lint → unit → component →
-agent-browser. Lefthook commit-time gate görevi görüyor. Bizde
-deneyebileceklerimiz: AGENTS.md başlatmak, üç-beş prensip seçmek ("Boundary
-Discipline" gibi), bir uygulamaya agent-browser eklemek. Ana mesaj akılda
-kalsın: "Fabrikayı düzelt, PR'ı değil" — agent yanılıyorsa hata genellikle
-PR'da değil, kural setinde, context'te veya pipeline'da.
--->
 ---
 hideInToc: true
 ---
@@ -1487,29 +1187,6 @@ setup — and conveniently, the opposite half. We just need to swap strengths.
   exist — per Alexander: a doorway, not a dump).
 </div>
 
-<!--
-Tek cümlelik özet: iki repomuzun her biri Alexander'ın setup'ının yarısına sahip
-— ve şanslıyız ki tam ters yarılarına. Yapmamız gereken güçlü yanları takas etmek.
-
-Search-ads-ui'da yazılı bir AI rehberi var — proje nasıl organize edilmiş,
-hangi pattern'lar kullanılıyor, hangi limitlere uyuluyor. Yani bir AI asistanı
-bu repoda işe bilgili başlıyor. Üstüne taze bir haber: Alexander'ın brain/
-yaklaşımını konferanstan döner dönmez search-ads-ui'da uyguladım — AI her
-oturumda projeyi sıfırdan keşfetmek yerine derlenmiş proje bilgisini yükleyerek
-başlıyor. İlk izlenimleri ayrıca paylaşacağım. Eksik olan güvenlik ağı:
-pre-commit kontrolü yok, hatalı commit geliştiricinin makinesinde
-durdurulmuyor, sorun daha geç ortaya çıkıyor.
-
-Action-kit'te durum tam tersi: pre-commit kontrolleri aktif — commit etmeye
-çalıştığınız anda kod otomatik kontrol edilip düzeltiliyor. Library çok iyi test
-edilmiş. Ama AI rehberi yok — bu repoya bırakılan bir AI asistanı her seferinde
-her şeyi sıfırdan keşfetmek zorunda.
-
-Bir sonraki adım: güçlü yanları takas edelim. Action-kit'in pre-commit setup'ını
-search-ads-ui'a kopyalayalım; action-kit için de elli satırlık kısa bir
-"doorway" AGENTS.md yazalım — Alexander'ın deyişiyle kapı olsun, çöplük değil.
-Mevcut storybook ve skills dökümanlarına işaret etmesi yeterli.
--->
 ---
 layout: section
 ---
@@ -1518,12 +1195,6 @@ layout: section
 
 Abdelrahman Awad
 
-<!--
-Beşinci konuşma vee-validate'in yazarı Abdelrahman Awad'dan. Şu anda Sentry'de
-Senior Engineer olarak çalışıyor. Konu form component'lerinin yeniden
-tasarlanması. Bu konuşmanın büyük bir teması accessibility — önce onu herkes
-için bir slaytta açalım.
--->
 
 ---
 hideInToc: true
@@ -1576,29 +1247,6 @@ Now the user knows exactly where they are and what to fix.
   a minute — the right panel of the demo.)
 </div>
 
-<!--
-Awad'ın konusuna girmeden önce iki terimi açalım: accessibility ve ARIA.
-
-Accessibility, yani erişilebilirlik: uygulamanın herkes için çalışması.
-Ekran okuyucu kullananlar — yani ekranı sesli okuyan yazılımla gezen görme
-engelli kullanıcılar — sadece klavyeyle gezinenler, az görenler. 2025'ten beri
-AB'de yasal zorunluluk; "olsa iyi olur" kategorisinden çıktı.
-
-İşin püf noktası şu: ekran okuyucu sadece kodun ona söylediğini söyleyebilir.
-Düz bir input alanını sesli okuyunca kullanıcının duyduğu tek şey: "edit text".
-Hangi alan? Zorunlu mu? Hata mı var? Hiçbir fikri yok.
-
-ARIA da tam bunun standardı: elemanların ne olduğunu ve hangi durumda olduğunu
-yardımcı teknolojilere söyleyen etiketler. Aynı alan doğru etiketlenince
-kullanıcının duyduğu: "Work email — edit text — required — invalid entry —
-Please fill out this field." Artık nerede olduğunu ve neyi düzelteceğini
-biliyor.
-
-Awad'ın saldırdığı problem şu: bu etiketleme her formun her alanında elle
-tekrarlanmak zorunda — sıkıcı ve unutması çok kolay. Cevabı: alanın "beyni"
-bunu otomatik üretsin. Birazdan demoda canlı göreceğiz — sağ paneldeki
-attribute listesi tam olarak bu.
--->
 ---
 layout: two-cols
 layoutClass: gap-8
@@ -1674,17 +1322,6 @@ bundles for markup *you* fully control.
 
 </div>
 
-<!--
-Awad'ın tezi şu: mevcut her form yaklaşımı bir şeyi geride bırakıyor. Pure
-validator'lar schema'yı çözüyor ama markup, accessibility ve i18n sende kalıyor.
-UI kit'ler güzel görünüyor ama davranış kilitli, customize ederken kütüphane
-ile savaşıyorsun. Schema builder'lar DSL'i terk ettiğin anda dünyayı yeniden
-inşa ediyorsun. "Headless" denilen kütüphaneler bile markup varsayımlarını
-sızdırıyor — yani gerçekten headless değiller. Onun cevabı şu: tek bir
-useField(props) beyni — davranış, state, i18n ve accessibility'yi bir arada
-yönetiyor, sana spread edeceğin prop bundle'ları veriyor, markup'ı sen
-yazıyorsun. Lafı uzatmadan canlı görelim.
--->
 ---
 hideInToc: true
 ---
@@ -1704,22 +1341,6 @@ hideInToc: true
   <code>useCalendar()</code> on markup we own. We styled it; formwerk does the rest.
 </div>
 
-<!--
-Bu slayt mockup değil — gerçekten formwerk çalıştırıyor, deck'in içine
-kütüphaneyi kurdum. Solda text field: bir şeyler yazın, silin — validation,
-hata mesajı ve altta canlı güncellenen bütün aria-* attribute'ları tek bir
-useTextField() çağrısından geliyor.
-
-Sağda ise tam bir date picker — Awad'ın deck'indeki örneğin aynısı. Üstte
-segment'li input, altında takvim grid'i; ikisi aynı field'a bağlı: takvimde
-bir güne tıklayın, segment'ler güncelleniyor; segment'i ok tuşuyla değiştirin,
-takvim seçimi kayıyor. Takvimin başlığına tıklarsanız ay görünümüne, bir daha
-tıklarsanız yıl görünümüne iniyor — hepsi klavyeyle de geziliyor. Locale
-butonlarına basın: en-US, tr-TR, ar-EG — segment sırası, ay isimleri, hatta
-rakamlar bile değişiyor ve değer her zaman gerçek bir Date objesi. Bütün bunlar
-useDateField() + useCalendar() ve bizim kendi markup'ımız. Awad'ın "davranış,
-state, i18n ve ARIA tek beyinden çıkar" dediği şeyin canlı hali.
--->
 ---
 hideInToc: true
 ---
@@ -1788,16 +1409,6 @@ next instant:  sorted, deduplicated, applied cleanly
   cover all of them.
 </div>
 
-<!--
-Burada kod var. Solda useTextField ve useCalendar hook'larının döndürdüğü prop
-bundle'ları görüyorsunuz. Calendar'da sadece prop değiştirerek Gregorian'dan
-Hijri'ye geçiyorsun, ekstra hiçbir şey yok. Sağda ARIA'nın bir output olduğunu,
-contract olmadığını gösteriyor — inputProps zaten aria-labelledby,
-aria-describedby, aria-invalid, aria-required ve role: 'combobox' içeriyor.
-En altta form transaction log'u var — tek bir tick'te birden çok değişim oluyor,
-sonraki tick'te sıralanmış, deduped ve uygulanmış olarak çıkıyor. UNSET INIT'ten
-önce gelirse stale operation siliniyor.
--->
 ---
 hideInToc: true
 ---
@@ -1831,19 +1442,6 @@ hideInToc: true
 
 </div>
 
-<!--
-Dört ana çıkarım var. Birincisi: useField(props) dört konuyu birden yönetiyor
-— davranış (klavye, focus, pointer), state (value, touched, dirty, errors),
-i18n (RTL, locale numbers, calendars) ve accessibility (ARIA prop'lara otomatik
-gömülü geliyor). İkincisi: controlProps, labelProps, errorProps bundle'larını
-sen kendi template'ine spread ediyorsun — kütüphane sana wrapper element
-dayatmıyor. Üçüncüsü: model en alta kadar composable — useNumberField aslında
-useSpinButton + useNumberParser + useInputValidity + useLocale'in birleşimi.
-Dördüncüsü ve en güzeli: form transactions — bir alan kaybolduğunda form
-sebebini sormuyor, her değişikliği queued ve dedupe edilmiş typed event olarak
-observe ediyor. Awad bunu vee-validate'le geçirdiği yıllardan çıkmış bir ders
-olarak anlatıyor.
--->
 ---
 hideInToc: true
 ---
@@ -1893,26 +1491,6 @@ That's the same separation Awad argues for — adding a formwerk-style
   well, move the primitives into action-kit so every app benefits.
 </div>
 
-<!--
-Tek cümlelik özet: zaten bütün formlarımızı Awad'ın bir önceki kütüphanesiyle
-(vee-validate) yazıyoruz — ve action-kit'in v2 form component'leri farkında
-olmadan onun yeni modeline doğru kaymış durumda.
-
-Search-ads-ui'daki en karmaşık formlarımız formwerk'in tam hedeflediği türden:
-sadece belirli durumlarda zorunlu hale gelen koşullu alanlar, her satırı kendi
-kuralına göre doğrulanan tekrar eden listeler ve her dilde çevrilmiş hata
-mesajları. Bugün her form bunların hepsini ayrı ayrı, elle bağlıyor.
-
-Action-kit tarafında güzel bir sürpriz var: v2 form component'lerimiz zaten
-"headless" — formu çiziyorlar ama bilinçli olarak hiç validation logic
-içermiyorlar. Bu, Awad'ın savunduğu ayrımın ta kendisi. Üstüne formwerk tarzı
-bir "field brain" katmanı eklemek yaklaşık beş küçük dosya demek.
-
-Bir sonraki adım: formwerk'i MMP goal formu üzerinde prototipleyelim — bütün
-pain point'leri tetikliyor: listeler, koşullu alanlar, çeviriler, accessibility.
-İyi sonuç verirse primitive'leri action-kit'e taşırız, bütün uygulamalar
-faydalanır.
--->
 ---
 layout: section
 ---
@@ -1921,10 +1499,6 @@ layout: section
 
 Nico Devs · 09:30
 
-<!--
-Altıncı ve son konuşma Nico Devs'ten, Tighten'da Lead Programmer. Konu real-time
-uygulamalar için pratik bir tur.
--->
 ---
 layout: two-cols
 layoutClass: gap-8
@@ -1993,34 +1567,6 @@ The realtime ladder, lightest to heaviest:
   <div class="text-[10px] op-50 mt-1 text-center">Neco baba ve bizzo</div>
 </div>
 
-<!--
-Nico'nun yapısı şu: ihtiyacın büyüdükçe stack'in de karmaşıklaşıyor. Birkaç
-terimi herkes için açayım — derine inmeyeceğim çünkü çoğu bizim dünyamızda yok:
-
-Polling: "yeni bir şey var mı?" diye tekrar tekrar sormak. Basit ama hiçbir
-zaman gerçekten canlı değil.
-
-SSE, yani Server-Sent Events: radyo yayını gibi. Bir kere kanalı açıyorsunuz,
-sunucu ne zaman yeni bir şey olursa size gönderiyor, bir daha sormuyorsunuz.
-Tek yönlü — dinliyorsunuz, cevap veremiyorsunuz. Ask AI chatbot'umuz tam
-olarak böyle çalışıyor.
-
-WebSocket: telefon görüşmesi gibi — iki taraf da istediği an konuşabiliyor.
-Chat ve ortak çalışma için.
-
-WebRTC: iki tarayıcının ortada sunucu olmadan doğrudan birbirine bağlanması —
-Zoom ve Meet tarzı görüntülü aramaların altyapısı bu. Video ve gizlilik için
-harika ama bizim kullanım alanımız değil, o yüzden detayına girmiyorum.
-
-Local-First ve CRDT'ler: veri cihazda yaşıyor, internet yokken de çalışıyor,
-bağlantı gelince çakışmasız birleşiyor.
-
-Her adım karmaşıklığı yeni bir özellikle değiş tokuş ediyor. Bizi ilgilendiren
-ilk iki basamak — farkı canlı görelim.
-
-Sağ alttaki fotoğraf: konuşma sonrası Nico ve ekiple — peer-to-peer bağlantı
-kurulmuştur.
--->
 
 ---
 hideInToc: true
@@ -2039,15 +1585,6 @@ hideInToc: true
   between). The right card is the SSE technique.
 </div>
 
-<!--
-İki kart da aynı veri kaynağına bakıyor. Soldaki bizim dashboard'larımızın
-bugünkü davranışı: birkaç saniyede bir sunucuya tekrar soruyor, aradaki sürede
-veri bayat — sarı uyarıya dikkat, gerçek değerle gösterilen değer ayrışıyor ve
-istek sayacı sürekli artıyor. Sağdaki ise chatbot'umuzun zaten kullandığı SSE
-tekniği: tek bir açık bağlantı, veri her an güncel, sıfır tekrar isteği.
-Nico'nun "polling hiçbir zaman gerçekten real-time değildir" cümlesinin canlı
-hali.
--->
 
 ---
 hideInToc: true
@@ -2117,15 +1654,6 @@ reconnect → changes merge without conflicts (CRDTs)
   <a href="https://nicodevs.com/slides/madvue/" target="_blank">nicodevs.com/slides/madvue</a>
 </div>
 
-<!--
-Dört tane primitive var, prensip şu: en hafif olanı seç ve onunla başla. SSE
-için useEventSource('/api/stream') ile başlıyorsun, otomatik reconnect retry
-ms sonra çalışıyor, Last-Event-ID header'ı kaçırılan event'leri replay ediyor.
-WebSocket için useWebSocket autoReconnect ve heartbeat opsiyonlarıyla geliyor.
-WebRTC PeerJS sayesinde SDP boilerplate'i olmadan kullanılıyor — gizlilik
-default olarak E2E, bandwidth faturası yok. Local-first'te data cihazda
-yaşıyor, CRDT'ler conflict-free merge sağlıyor.
--->
 ---
 layout: section
 ---
@@ -2134,11 +1662,6 @@ layout: section
 
 Daniel Roe · Nuxt team lead
 
-<!--
-Yedinci konuşma Nuxt ekibinin lideri Daniel Roe'dan. Biz Nuxt kullanmıyoruz ama
-bu konuşma önemli: Vue ekosisteminin geleceği önce Nuxt'ta şekilleniyor. Önce
-Nuxt nedir, Next.js ile karışıklığı da gidererek bir slaytta açıklayalım.
--->
 ---
 hideInToc: true
 ---
@@ -2188,29 +1711,6 @@ hideInToc: true
 
 </div>
 
-<!--
-Daniel'ın konuşmasına girmeden önce: Nuxt nedir? Ve çok duyduğunuz Next.js
-ile aynı şey mi?
-
-Vue size ekran kurmak için yapı taşlarını verir. Nuxt ise onun üstüne kurulu
-framework — ekranların etrafındaki her şeyi halleder: sayfalar ve URL'ler,
-hızlı yüklenme, Google'da görünürlük, sunucu tarafı işler. Yapı taşları ile
-komple ev planı farkı.
-
-Next.js meselesi basit: aynı fikrin React ailesindeki karşılığı. React
-tarafında React + Next.js, Vue tarafında Vue + Nuxt. Next.js daha meşhur
-çünkü React daha yaygın — ama rolleri birebir aynı. İsim bile bilinçli bir
-göz kırpma: Nuxt 2016'da, Next'ten hemen sonra çıktı.
-
-Ne zaman Nuxt veya Next seçilir? Sitenin Google'da bulunması ve anında
-yüklenmesi gerekiyorsa — yani sayfalar sunucuda render ediliyorsa: e-ticaret,
-haber siteleri, landing page'ler. Bir de routing, veri çekme, deployment gibi
-kararların sizin yerinize verilmesini istiyorsanız.
-
-Biz ise login arkasında dashboard yapıyoruz — arama motoru yok, halka açık
-sayfa yok. Düz Vue + Vite bizim için daha hafif ve doğru boyutta bir seçim.
-Ama Daniel'ın anlatacakları yine de bizi ilgilendiriyor — birazdan göreceğiz.
--->
 ---
 layout: two-cols
 layoutClass: gap-8
@@ -2283,21 +1783,6 @@ A roadmap talk in two halves:
   that actually stuck is on the next slide. →
 </div>
 
-<!--
-Önce teknik olmayan arkadaşlar için: Nuxt, Vue uygulamaları kurmak için en
-popüler "her şey dahil" framework. Biz kullanmıyoruz ama Vue ekosisteminin
-geleceği önce orada şekilleniyor — bu yüzden roadmap'i bizim için de ön izleme.
-
-Roadmap'i bir slaytta özetliyorum: Nuxt 4.5 yakında, odaklı bir minor. Nuxt 5
-ise önümüzdeki yıl boyunca geliyor — Vite 8 üzerine yeniden kuruluyor,
-"progressive JS" ile compiler her component için en ucuz render modunu
-seçecek, her şey typed olacak. Bizim için aksiyon yok: Nuxt kullanmıyoruz ve
-kullanmamız gerektiğini söyleyen bir şey de yok; Vite 8 ve Vapor zaten
-kendiliğinden stack'imize gelecek.
-
-Ama bu konuşmadan asıl aklımda kalan roadmap değil. Bir sonraki slaytta —
-sesi açın.
--->
 ---
 hideInToc: true
 ---
@@ -2334,24 +1819,6 @@ hideInToc: true
   </div>
 </div>
 
-<!--
-Konferansın bana en çok dokunan kısmı bu — kendi koltuğumdan çektim, dört
-buçuk dakika, sesi açın. Daniel'ın AI ile ilgili duruşu çok net ve çok insani:
-
-Mesele agent'lar değil — mesele PR'ın arkasında bir insanın olmaması. GitHub
-üzerinden bir chatbot'la "haklısınız, hemen değiştiriyorum" diyaloğu yaşamak
-istemiyorum diyor — olabilecek en kötü deneyim. Token harcayarak teknoloji
-üretebilirsiniz ama insan ve topluluk üretemezsiniz. Nuxt'ın bundan sonrası
-için tek bir değeri olacaksa o da şu: önce insan. Pratik tarafı da var:
-insanlar için sezgisel olan, agent'lar için de sezgiseldir.
-
-Devamında 10x developer efsanesine giriyor: tek başına harika şeyler yapan
-dahi fikri cazip, agent'lar bu cazibeyi daha da büyütüyor — ama araştırmalar
-net: güvendiğin bir ekiple yanıla yanıla ilerlemek, tek dahinin planından
-çok daha iyi sonuç veriyor. Ve Nuxt'ın AI tarifi: insanı güçlendiren,
-kanıta dayalı, hype kovalamak yerine deneye dayalı. Video "Enough about AI"
-diye bitiyor — kapanışı kendisi yapıyor.
--->
 
 ---
 layout: section
@@ -2361,10 +1828,6 @@ layout: section
 
 Photos & notes — full write-ups coming later
 
-<!--
-Bu yedi konuşmanın dışında iki tane daha vardı. Onlar için elimde sadece
-fotoğraf ve notlar var, ileride ayrı bir oturumda detaylı paylaşırım.
--->
 ---
 hideInToc: true
 ---
@@ -2383,12 +1846,6 @@ A quick rundown — deeper write-ups in a follow-up session:
   <span><strong>Juan Andrés Núñez</strong> — <em>Learning professional Frontend with Science and Agentic AI</em></span>
 </div>
 
-<!--
-Néstor López'in Module Federation konuşması vardı — micro-frontend pattern'larıyla
-ilgilenenler için iyi bir kaynak, Daniel'ın bahsettiği Nuxt module federation
-desteğiyle de örtüşüyor. Juan Andrés Núñez ise agentic AI ve frontend'i bilimsel
-bir yaklaşımla ele aldı. Hangisi ilgilendirirse söyleyin, sıraya alırım.
--->
 ---
 hideInToc: true
 class: p-0
