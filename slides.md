@@ -11,6 +11,9 @@ drawings:
 transition: slide-left
 mdc: true
 duration: 35min
+# hash routing keeps every slide behind "#/" so GitHub Pages (which has no
+# server-side rewrites) always serves index.html — avoids deep-link 404s.
+routerMode: hash
 ---
 
 # MadVue 2026 — Recap
